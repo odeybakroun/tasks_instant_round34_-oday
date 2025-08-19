@@ -1,5 +1,6 @@
 import 'package:task2/task2.dart' as r34_09;
 void main(List<String> arguments) {
+   print(solution1(numbers: [5, 2, 7, 4, 9], count: 22));
  }
 
 // for a = [5,2,7,4,9] and k =5 ,result =3;
