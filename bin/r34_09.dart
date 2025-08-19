@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import 'package:task2/task2.dart' as r34_09;
 void main(List<String> arguments) {
  }
 
+=======
+ void main(List<String> arguments) {
+   print(solution1(numbers: [5, 2, 7, 4, 9], count: 5));
+ }
+/// new **
+>>>>>>> 6e21a990b959389918cb9f53b90e019b31963caa
 // for a = [5,2,7,4,9] and k =5 ,result =3;
 int? solution1({required List<int> numbers, required int count}) {
   if (numbers.isEmpty) return null;
