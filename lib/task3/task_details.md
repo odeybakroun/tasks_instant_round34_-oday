@@ -16,7 +16,6 @@ Your task is to create **3 independent features** in a Flutter/Dart project:
 - Use abstract classes for repository interfaces
 - Keep business logic in the domain layer
 - UI components belong in the presentation layer
-
 ## 🧩 Example 1: User Feature Structure
 ```
 User/
