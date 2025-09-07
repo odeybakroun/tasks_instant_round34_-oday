@@ -10,7 +10,7 @@ class CreateUser {
   CreateUser(this.repository);
 
   Either<Failure, User> call(User user) {
-    return repository.addUser(user);
+    return repository.createUser(user);
   }
 }
 
