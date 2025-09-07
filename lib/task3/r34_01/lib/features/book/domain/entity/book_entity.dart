@@ -1,5 +1,18 @@
-class BookEntity {
+import 'package:equatable/equatable.dart';
+
+class Book extends Equatable {
   final String id;
   final String name;
-  const BookEntity({required this.id, required this.name});
+  final String description;
+  final double price;
+
+  const Book({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.price,
+  });
+
+  @override
+  List<Object> get props => [id, name, description, price];
 }
