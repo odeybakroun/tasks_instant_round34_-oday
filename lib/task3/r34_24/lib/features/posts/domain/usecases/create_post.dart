@@ -10,7 +10,7 @@ class CreatePost {
   CreatePost(this.repository);
 
   Either<Failure, Post> call(Post post) {
-    return repository.addPost(post);
+    return repository.createPost(post);
   }
 }
 
