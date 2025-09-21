@@ -3,22 +3,33 @@ import 'package:task7/features/products/domain/entities/product.dart';
 class ProductModel extends Product {
   ProductModel(
       {required super.id,
-      required super.name,
+      required super.title,
       required super.description,
       required super.price});
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-        id: json['id'],
-        name: json['name'],
+        id: json['id'].toString(),
+        title: json['title'],
         description: json['description'],
-        price: json['price']);
+price: (json['price'] is int)
+          ? (json['price'] as int).toDouble()
+          : (json['price'] ?? 0.0).toDouble(),        
+        
+        );
   }
 
   Map<String, dynamic> json() {
     return {
       'id': id,
-      'name': name,
+      'title': title,
+      'description': description,
+      'price': price,
+    };
+  }
+  Map<String, dynamic> toJsonForCreate() {
+    return {
+     'title': title,
       'description': description,
       'price': price,
     };
@@ -26,13 +37,13 @@ class ProductModel extends Product {
 
   ProductModel copywith({
     String? id,
-    String? name,
+    String? title,
     String? description,
     double? price,
   }) {
     return ProductModel(
         id: id ?? this.id,
-        name: name ?? this.name,
+        title: title ?? this.title,
         description: description ?? this.description,
         price: price ?? this.price);
   }

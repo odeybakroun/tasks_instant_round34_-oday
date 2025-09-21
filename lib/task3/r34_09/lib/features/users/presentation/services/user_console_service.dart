@@ -33,7 +33,7 @@ class UserConsoleService with MapFailureMessages {
         print('\n=== users ===');
         for (final user in users) {
           print('ID: ${user.id}');
-          print('Name: ${user.name}');
+          print('firstName: ${user.firstName}');
           print('email: ${user.email}');
           print('password: ${user.password}');
           print('---');
@@ -50,17 +50,17 @@ class UserConsoleService with MapFailureMessages {
       (user) {
         print('\n=== user DETAILS ===');
         print('ID: ${user.id}');
-        print('Name: ${user.name}');
+        print('firstName: ${user.firstName}');
         print('email: ${user.email}');
         print('password:${user.password}');
       },
     );
   }
 
-  Future<void> createuser(String name, String email, String password) async {
+  Future<void> createuser(String firstName, String email, String password) async {
     final user = User(
       id: '',
-      name: name,
+      firstName: firstName,
       email: email,
       password: password,
     );
@@ -73,10 +73,10 @@ class UserConsoleService with MapFailureMessages {
     );
   }
 
-  Future<void> updateuser(String id, String name, String email, String password) async {
+  Future<void> updateuser(String id, String firstName, String email, String password) async {
     final user = User(
       id: id,
-      name: name,
+      firstName: firstName,
       email: email,
       password: password,
     );

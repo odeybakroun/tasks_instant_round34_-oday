@@ -37,7 +37,7 @@ class PostConsoleService with MapFailureMessages {
           print('ID: ${post.id}');
           print('title: ${post.title}');
           print('content: ${post.content}');
-          print('createAt: ${post.createAt}');
+          print('views: ${post.views}');
           print('---');
         }
       },
@@ -54,18 +54,18 @@ class PostConsoleService with MapFailureMessages {
         print('ID: ${Post.id}');
         print('title: ${Post.title}');
         print('content: ${Post.content}');
-        print('createAt: ${Post.createAt}');
+        print('views: ${Post.views}');
       },
     );
   }
 
   
-  Future<void> createpost(String title, String content, int createAt) async {
+  Future<void> createpost(String id,String title, String content, int views) async {
     final post = Post(
-      id: '', 
+      id: id, 
       title: title,
       content: content,
-      createAt: createAt,
+      views: views,
     );
  
     final result =
@@ -79,12 +79,12 @@ class PostConsoleService with MapFailureMessages {
   }
 
    Future<void> updatepost(
-      String id, String title, String content, int createAt) async {
+      String id, String title,  String content, int views) async {
     final post = Post(
       id: id,
       title: title,
       content: content,
-      createAt: createAt,
+      views: views,
     );
 
     final result =

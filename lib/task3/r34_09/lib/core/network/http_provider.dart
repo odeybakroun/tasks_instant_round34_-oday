@@ -73,7 +73,7 @@ class HttpProvider implements ApiProvider {
       try {
         return json.decode(response.body);
       } catch (e) {
-        return response.body; // لو مش JSON بيرجعه نص عادي
+        return response.body;  
       }
     } else {
       if (statusCode == 400) throw BadRequestException();

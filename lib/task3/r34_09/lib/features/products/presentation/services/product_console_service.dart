@@ -35,7 +35,7 @@ class ProductConsoleService with MapFailureMessages {
         print('\n=== PRODUCTS ===');
         for (final product in products) {
           print('ID: ${product.id}');
-          print('Name: ${product.name}');
+          print('title: ${product.title}');
           print('Description: ${product.description}');
           print('Price: \$${product.price.toStringAsFixed(2)}');
           print('---');
@@ -52,17 +52,17 @@ class ProductConsoleService with MapFailureMessages {
       (product) {
         print('\n=== PRODUCT DETAILS ===');
         print('ID: ${product.id}');
-        print('Name: ${product.name}');
+        print('title: ${product.title}');
         print('Description: ${product.description}');
         print('Price: \$${product.price.toStringAsFixed(2)}');
       },
     );
   }
 
-  Future<void> createProduct(String name, String description, double price) async {
+  Future<void> createProduct(String title, String description, double price) async {
     final product = Product(
       id: '', 
-      name: name,
+      title: title,
       description: description,
       price: price,
     );
@@ -78,10 +78,10 @@ class ProductConsoleService with MapFailureMessages {
   }
 
   Future<void> updateProduct(
-      String id, String name, String description, double price) async {
+      String id, String title, String description, double price) async {
     final product = Product(
       id: id,
-      name: name,
+      title: title,
       description: description,
       price: price,
     );

@@ -7,7 +7,7 @@ import 'package:task7/features/posts/domain/entities/post.dart';
 import 'package:task7/features/posts/domain/repositories/post_repository.dart';
 
 class PostRepositoryImpl implements PostRepository {
-  late final PostRemoteDatasource remoteDatasource;
+  final PostRemoteDatasource remoteDatasource;
 
   PostRepositoryImpl({required this.remoteDatasource});
 
@@ -15,12 +15,13 @@ class PostRepositoryImpl implements PostRepository {
   Future<Either<Failure, Post>> createPost(Post post) async {
     try {
       final postModel = PostModel(
-          id: post.id,
-          title: post.title,
-          content: post.content,
-          createAt: post.createAt);
-      final newproduct = remoteDatasource.createPost(postModel);
-      return Right(newproduct);
+        id: '',  
+        title: post.title,
+        content: post.content,
+        views: post.views,
+      );
+      final newPost = await remoteDatasource.createPost(postModel);
+      return Right(newPost);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -29,8 +30,8 @@ class PostRepositoryImpl implements PostRepository {
   @override
   Future<Either<Failure, bool>> deletePost(String id) async {
     try {
-      final result = remoteDatasource.deletePost(id);
-      return Right(result as bool);
+      final result = await remoteDatasource.deletePost(id);
+      return Right(result);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -39,8 +40,8 @@ class PostRepositoryImpl implements PostRepository {
   @override
   Future<Either<Failure, List<Post>>> getAllPost() async {
     try {
-      final remotepost = remoteDatasource.getAllPost();
-      return Right(remotepost);
+      final remotePosts = await remoteDatasource.getAllPost();
+      return Right(remotePosts);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -49,8 +50,8 @@ class PostRepositoryImpl implements PostRepository {
   @override
   Future<Either<Failure, Post>> getPost(String id) async {
     try {
-      final remotepost = remoteDatasource.getPost(id);
-      return Right(remotepost);
+      final remotePost = await remoteDatasource.getPost(id);
+      return Right(remotePost);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -59,13 +60,14 @@ class PostRepositoryImpl implements PostRepository {
   @override
   Future<Either<Failure, Post>> updatePost(Post post) async {
     try {
-      final productmodel = PostModel(
-          id: post.id,
-          title: post.title,
-          content: post.content,
-          createAt: post.createAt);
-      final updateproduct = remoteDatasource.updatePost(productmodel);
-      return Right(updateproduct);
+      final postModel = PostModel(
+        id: post.id,
+        title: post.title,
+        content: post.content,
+        views: post.views,
+      );
+      final updatedPost = await remoteDatasource.updatePost(postModel);
+      return Right(updatedPost);
     } on ServerException {
       return Left(ServerFailure());
     }

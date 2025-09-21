@@ -15,11 +15,11 @@ class ProductRepositoryImpl implements ProductRepository {
     try {
       final productModel = ProductModel(
           id: product.id,
-          name: product.name,
+          title: product.title,
           description: product.description,
           price: product.price);
-      final newproduct = remoteDatasource.createProduct(productModel);
-      return Right(newproduct);
+      final newproduct =await remoteDatasource.createProduct(productModel);
+      return Right( newproduct);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -28,8 +28,8 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<Failure, bool>> deleteProduct(String id) async {
     try {
-      final result = remoteDatasource.deleteProduct(id);
-      return Right(result as bool);
+      final result =await  remoteDatasource.deleteProduct(id);
+      return Right(result );
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -38,8 +38,8 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<Failure, List<Product>>> getAllProducts() async {
     try {
-      final remoteProducts = remoteDatasource.getAllProducts();
-      return Right(remoteProducts);
+      final remoteProducts =await remoteDatasource.getAllProducts();
+      return Right( remoteProducts);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -48,8 +48,8 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<Failure, Product>> getProduct(String id) async {
     try {
-      final remoteproduct = remoteDatasource.getProduct(id);
-      return Right(remoteproduct);
+      final remoteproduct =await remoteDatasource.getProduct(id);
+      return Right( remoteproduct);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -61,11 +61,11 @@ class ProductRepositoryImpl implements ProductRepository {
     try {
       final productmodel = ProductModel(
           id: product.id,
-          name: product.name,
+          title: product.title,
           description: product.description,
           price: product.price);
-      final updateproduct = remoteDatasource.updateProducts(productmodel);
-      return Right(updateproduct);
+      final updateproduct = await remoteDatasource.updateProducts(productmodel);
+      return Right( updateproduct);
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -58,8 +58,11 @@ class PostMenu {
   }
 
   Future<void> _createpost() async {
+        stdout.write("Enter User id from 1 to 200: ");
+    final id = stdin.readLineSync();
     stdout.write("Enter post title: ");
     final title = stdin.readLineSync();
+    
     stdout.write("Enter post content: ");
     final content = stdin.readLineSync();
     stdout.write("Enter post date: ");
@@ -67,13 +70,14 @@ class PostMenu {
 
     if (title != null &&
         title.isNotEmpty &&
+        id != null && id.isNotEmpty &&
         content != null &&
         content.isNotEmpty &&
         createAt != null &&
         createAt.isNotEmpty) {
       try {
         final createat = int.parse(createAt);
-        await _postservice.createpost(title, content, createat);
+        await _postservice.createpost(id,title, content, createat);
       } catch (e) {
         print("Invalid date format. Please enter a valid number.");
       }

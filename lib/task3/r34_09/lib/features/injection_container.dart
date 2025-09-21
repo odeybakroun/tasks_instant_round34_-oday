@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:task7/core/network/api_provider.dart';
+import 'package:task7/core/network/http_provider.dart';
 
 // ================= PRODUCTS =================
 import 'package:task7/features/products/data/datasources/product_remote_datasource.dart';
@@ -39,8 +41,10 @@ void init() {
   // ====================================================
   // PRODUCTS
   // ====================================================
+  sl.registerLazySingleton<ApiProvider>(() => HttpProvider());
+
   sl.registerLazySingleton<ProductRemoteDatasource>(
-    () => ProductRemoteDatasourceImpl(),
+    () => ProductRemoteDatasourceImpl(apiProvider: sl()),
   );
 
   sl.registerLazySingleton<ProductRepository>(
@@ -67,7 +71,7 @@ void init() {
   // USERS
   // ====================================================
   sl.registerLazySingleton<UserRemoteDatesources>(
-    () => UserRemoteDatesourcesImbl(),
+    () => UserRemoteDatesourcesImbl(apiProvider: sl()),
   );
 
   sl.registerLazySingleton<UserRepository>(
@@ -95,7 +99,7 @@ void init() {
 
   // ====================================================
   sl.registerLazySingleton<PostRemoteDatasource>(
-    () => PostRemoteDatasourceImpl(),
+    () => PostRemoteDatasourceImpl(apiProvider: sl()),
   );
 
   sl.registerLazySingleton<PostRepository>(
