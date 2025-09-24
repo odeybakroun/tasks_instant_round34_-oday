@@ -1,23 +1,19 @@
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:r34_12/core/error/faliures.dart';
-import 'package:r34_12/features/posts/domain/repositories/post_repository.dart';
+import 'package:r34_21/core/error/faliures.dart';
+import 'package:r34_21/features/posts/domain/repositories/post_repository.dart';
+import 'package:dartz/dartz.dart';
 
-class Deletepost {
+class DeletePost {
   final PostRepository repository;
-
-  Deletepost(this.repository);
-
-  Either<Failure, bool> call(DeletepostParams params) {
-    return repository.deletepost(params.id);
+  DeletePost(this.repository);
+  Future<Either<Failure, bool>> call(DeletePostparams params) {
+    return repository.deletePost(params.id);
   }
 }
 
-class  DeletepostParams extends Equatable {
+class DeletePostparams extends Equatable{
   final String id;
-
-  const DeletepostParams({required this.id});
-
+    const DeletePostparams({required this.id});
   @override
   List<Object?> get props => [id];
 }

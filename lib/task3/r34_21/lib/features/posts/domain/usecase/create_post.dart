@@ -1,25 +1,22 @@
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:r34_12/core/error/faliures.dart';
-import 'package:r34_12/features/posts/domain/entities/post.dart';
-import 'package:r34_12/features/posts/domain/repositories/post_repository.dart';
 
+import 'package:dartz/dartz.dart';
+import 'package:r34_21/core/error/faliures.dart';
+import 'package:r34_21/features/posts/domain/entities/post.dart';
+import 'package:r34_21/features/posts/domain/repositories/post_repository.dart';
 
-class Createpost {
+class CreatePost {
   final PostRepository repository;
-
-  Createpost(this.repository);
-
-  Either<Failure, Post> call(CreatepostParams params) {
-    return repository.createpost(params.post);
+  CreatePost(this.repository);
+    Future<Either<Failure, Post>> call(Createpostparams params) {
+    return repository.createPost(params.post);
   }
 }
 
-class CreatepostParams extends Equatable {
+
+class Createpostparams extends Equatable{
   final Post post;
-
-  const CreatepostParams({required this.post});
-
+  const Createpostparams({required this.post});
   @override
   List<Object?> get props => [post];
 }
