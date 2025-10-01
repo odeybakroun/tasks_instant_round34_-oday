@@ -9,7 +9,8 @@ class CreateUser {
 
   CreateUser(this.repository);
 
-   Either<Failure, User> call(CreateUserParams params) {
+  Either<Failure, User> call(CreateUserParams params) {
+
     return repository.createUser(params.user);
   }
 }
@@ -17,8 +18,9 @@ class CreateUser {
 class CreateUserParams extends Equatable {
   final User user;
 
-  const CreateUserParams(this.user);
+  const CreateUserParams({required this.user});
 
   @override
   List<Object?> get props => [user];
 }
+

@@ -17,8 +17,7 @@ class UpdateUser {
 class UpdateUserParams extends Equatable {
   final User user;
 
-  const UpdateUserParams(this.user);
+  const UpdateUserParams({required this.user});
 
   @override
-  List<Object?> get props => [user];
-}
+  List<Object> get props => [user];
