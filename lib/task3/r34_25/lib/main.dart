@@ -52,4 +52,3 @@ void _showMainMenu(ProductMenu productMenu, UserMenu userMenu, PostMenu postMenu
         print('Invalid choice. Please try again.');
     }
   }
-}

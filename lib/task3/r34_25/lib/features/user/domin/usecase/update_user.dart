@@ -21,4 +21,3 @@ class UpdateUserParams extends Equatable {
 
   @override
   List<Object> get props => [user];
-}
