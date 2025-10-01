@@ -1,46 +1,54 @@
-import 'package:r34_12/core/error/exception.dart';
-import 'package:r34_12/features/products/data/models/product_model.dart';
+import 'package:r34_21/core/error/exception.dart';
+import 'package:r34_21/features/products/data/models/product_model.dart';
 
 
-
-abstract class ProductRemoteDataSource {
-  Future<List<ProductModel>> getAllProducts();
-  Future<ProductModel> getProduct(String id);
-  Future<ProductModel> createProduct(ProductModel product);
-  Future<ProductModel> updateProduct(ProductModel product);
-  Future<bool> deleteProduct(String id);
+abstract class ProductRemoteDatasource {
+  List<ProductModel> getAllProducts();
+  ProductModel getProduct(String id);
+  ProductModel createProduct(ProductModel product);
+  ProductModel updateProducts(ProductModel product);
+  bool deleteProduct(String id);
 }
 
-class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
+class ProductRemoteDatasourceImpl implements ProductRemoteDatasource {
   final List<ProductModel> _products = [
-    const ProductModel(id: '1', name: 'product 1', description: 'description 1', price: 10.0),
-    const ProductModel(id: '2', name: 'product 2', description: 'description 2', price: 20.0),
+    ProductModel(id: '1', name: 'mobile', description: 'apple', price: 5),
+    ProductModel(id: '2', name: 'laptop', description: 'dell', price: 10),
   ];
 
   @override
-  Future<List<ProductModel>> getAllProducts() async {
-    return _products;
+  ProductModel createProduct(ProductModel product) {
+    final newProduct =
+        product.copywith(id: DateTime.now().microsecondsSinceEpoch.toString());
+    _products.add(newProduct);
+    return newProduct;
   }
 
   @override
-  Future<ProductModel> getProduct(String id) async {
+  bool deleteProduct(String id) {
+   
+      final initialLingth = _products.length;
+      _products.removeWhere((product)=>product.id ==id);
+      return _products.length< initialLingth;
+   
+  }
+
+  @override
+  List<ProductModel> getAllProducts() {
+     return _products;
+  }
+
+  @override
+  ProductModel getProduct(String id) {
     try {
-      final product = _products.firstWhere((product) => product.id == id);
-      return product;
+      return _products.firstWhere((p) => p.id == id);
     } catch (e) {
       throw ServerException();
     }
   }
 
   @override
-  Future<ProductModel> createProduct(ProductModel product) async {
-    final newProduct = product.copywith(id: DateTime.now().millisecondsSinceEpoch.toString()); 
-    _products.add(newProduct);
-    return newProduct;
-  }
-
-  @override 
-  Future<ProductModel> updateProduct(ProductModel product) async {
+  ProductModel updateProducts(ProductModel product) {
     final index = _products.indexWhere((p) => p.id == product.id);
     if (index != -1) {
       _products[index] = product;
@@ -48,12 +56,5 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     } else {
       throw ServerException();
     }
-  }
-
-  @override
-  Future<bool> deleteProduct(String id) async {
-    final initialLength = _products.length;
-    _products.removeWhere((product) => product.id == id);
-    return _products.length < initialLength;
   }
 }

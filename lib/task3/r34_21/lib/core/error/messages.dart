@@ -1,6 +1,6 @@
 import 'faliures.dart';
 
-mixin FailureMessages {
+mixin MapFailureMessages {
   String mapFailureToMessage(Failure failure) {
     return switch (failure) {
       ServerFailure() => 'Server Failure',

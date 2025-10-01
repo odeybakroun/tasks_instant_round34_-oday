@@ -1,12 +1,72 @@
-import 'package:r34_12/core/error/faliures.dart';
-import 'package:r34_12/features/products/domain/entities/product.dart';
-
 import 'package:dartz/dartz.dart';
+import 'package:r34_21/core/error/exception.dart';
+import 'package:r34_21/core/error/faliures.dart';
+import 'package:r34_21/features/products/data/datasurces/product_remote_datasourse.dart';
+import 'package:r34_21/features/products/data/models/product_model.dart';
+import 'package:r34_21/features/products/domain/entities/product.dart';
+import 'package:r34_21/features/products/domain/repositories/product_repositories.dart';
 
-abstract class ProductRepository {
-  Either<Failure, List<Product>> getallproducts();
-    Either<Failure, Product> getproduct(String id);
-    Either<Failure, Product> createProduct(Product product);
-    Either<Failure, Product> updateProduct(Product product);
-    Either<Failure, bool> deleteProduct(String id);
+class ProductRepositoryImpl implements ProductRepository {
+   final ProductRemoteDatasource remoteDatasource;
+  ProductRepositoryImpl({required this.remoteDatasource});
+  @override
+  Future<Either<Failure, Product>> createProduct(Product product) async {
+    try {
+      final productModel = ProductModel(
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: product.price);
+      final newproduct = remoteDatasource.createProduct(productModel);
+      return Right(newproduct);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> deleteProduct(String id) async {
+    try {
+      final result = remoteDatasource.deleteProduct(id);
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Product>>> getAllProducts() async {
+    try {
+      final remoteProducts = remoteDatasource.getAllProducts();
+      return Right(remoteProducts);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Product>> getProduct(String id) async {
+    try {
+      final remoteproduct = remoteDatasource.getProduct(id);
+      return Right(remoteproduct);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Product>> updateProducts(
+        Product product) async {
+    try {
+      final productmodel = ProductModel(
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: product.price);
+      final updateproduct = remoteDatasource.updateProducts(productmodel);
+      return Right(updateproduct);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

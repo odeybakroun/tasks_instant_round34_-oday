@@ -4,20 +4,18 @@ import 'package:r34_21/core/error/faliures.dart';
 import 'package:r34_21/features/users/domain/entities/user.dart';
 import 'package:r34_21/features/users/domain/repositories/user_repositories.dart';
 
-class UpdateUser {
+
+class GetUser {
   final UserRepository repository;
-  UpdateUser(this.repository);
-    Future<Either<Failure, User>> call(UpdateUserparams params) {
-    return repository.updateUser(  params.user);
+  GetUser(this.repository);
+    Future<Either<Failure, User>> call(Getuserparams params) {
+    return repository.getUser(params.id);
   }
 }
 
-class UpdateUserparams extends Equatable{
- 
-  final User user;
-
-  const UpdateUserparams({ required this.user});
+class Getuserparams extends Equatable {
+  final String id;
+  const Getuserparams({required this.id});
   @override
-  List<Object?> get props => [id, user]; 
-
+  List<Object?> get props => [id];
 }

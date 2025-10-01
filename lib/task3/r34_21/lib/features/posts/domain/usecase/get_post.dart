@@ -5,18 +5,17 @@ import 'package:r34_21/features/posts/domain/repositories/post_repository.dart';
 import 'package:dartz/dartz.dart';
 
 
-class UpdatePost {
+class GetPost {
   final PostRepository repository;
-  UpdatePost(this.repository);
-  Future<Either<Failure, Post>> call(UpdatePostparams params) {
-    return repository.updatePost(  params.post);
+  GetPost(this.repository);
+  Future<Either<Failure, Post>> call(Getpostparams params) {
+    return repository.getPost(params.id);
   }
 }
 
-class UpdatePostparams extends Equatable {
-   final Post post;
-
-  const UpdatePostparams({ required this.post});
+class Getpostparams extends Equatable {
+  final String id;
+   const Getpostparams({required this.id});
   @override
-  List<Object?> get props => [id, post];
+  List<Object?> get props => [id];
 }
